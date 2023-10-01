@@ -50,9 +50,9 @@ app.get('/student/find', (req, res) => {
 });
 
 // Update a student by sid
-app.put('/student/update', (req, res) => {
+app.patch('/student/update', (req, res) => {
     const sid = req.query.sid;
-    Student.findOneAndUpdate({ sid: sid }, req.body)
+    Student.findOneAndUpdate({ sid: sid }, { $set: req.body })
         .then((result) => {
             res.send(result);
         })
