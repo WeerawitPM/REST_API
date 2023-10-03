@@ -16,7 +16,10 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Create a new student
 app.post('/student/add', (req, res) => {
-    const student = new Student(req.body);
+    let student = new Student(req.body);
+    //สร้างวันที่ โดยแสดงแบบ วัน/เดือน/ปี เวลา เช่น 1/1/2021 12:00:00
+    student.createdAt = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+
     student.save()
         .then((result) => {
             res.send(result);

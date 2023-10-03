@@ -9,6 +9,7 @@ const studentSchema = new mongoose.Schema({
     email: String,
     phone: String,
     img: String,
+    createdAt: String,
 });
 
 const Student = mongoose.model('Student', studentSchema);
