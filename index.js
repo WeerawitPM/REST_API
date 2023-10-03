@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('cors');
+const cors = require('cors'); // ทำให้สามารถเรียกใช้งาน api ได้ทุก ๆ domain
 const mongoose = require('mongoose');
 const Student = require('./student_schema.js');
 

@@ -9,7 +9,7 @@ const studentSchema = new mongoose.Schema({
     email: String,
     phone: String,
     img: String,
-    createdAt: String,
+    createdAt: { type: String, immutable: true },
 });
 
 const Student = mongoose.model('Student', studentSchema);
