@@ -1,15 +1,15 @@
-const express = require('express')
+const express = require('express');
 const cors = require('cors'); // ทำให้สามารถเรียกใช้งาน api ได้ทุก ๆ domain
 const mongoose = require('mongoose');
 const Student = require('./student_schema.js');
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-const db = "mongodb+srv://admin:1234@cluster0.yiyc05o.mongodb.net/student_data?retryWrites=true&w=majority"
+const db = "mongodb+srv://admin:1234@cluster0.yiyc05o.mongodb.net/student_data?retryWrites=true&w=majority";
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
@@ -76,8 +76,18 @@ app.delete('/student/delete', (req, res) => {
         });
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+app.get('/random_student', (req, res) => {
+    Student.aggregate([{ $sample: { size: 1 } }])
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 
-module.exports = app
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+});
+
+module.exports = app;
